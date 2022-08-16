@@ -47,7 +47,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Starting
 app.get("/", (req, res) => {
-  res.render("pages/index");
+  res.render("./views/pages/index");
 });
 
 // Static files (Web)
