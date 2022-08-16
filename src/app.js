@@ -7,6 +7,7 @@ const mongoose = require("mongoose")          // Mongoose
 require('dotenv').config()                    // Variables de entono HEROKU
 
 const path = require("path");                 // Rutas relativas (Linux, Wndows, Mac)
+const { Console } = require("console");
 
 app.set("view engine", "ejs");                // Renderizado ejs
 
@@ -47,15 +48,20 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 
 // Starting
 app.get("/", (req, res) => {
-  res.render("./pages/index");
+  res.render(path.join(__dirname, "views/pages/index"));
 });
+// console.log(path.join(__dirname, "views/page/index"))
+
+
+
 
 // Static files (Web)
 app.use(express.static(path.join(__dirname, "../public")));
 
 // Routes
-app.use(require("./routes/index.routes"));
+app.use(require(path.join(__dirname,"./routes/index.routes")));
 
+// console.log(path.join(__dirname, "./routes/index.routes"));
 
 // 404
 // app.use((req, res) => {
@@ -65,7 +71,7 @@ app.use(require("./routes/index.routes"));
 
 // New 404 Renderizada
 app.use((req, res, next) => {
-  res.status(404).render("./pages/404")
+  res.status(404).render(path.join(__dirname, "./views/pages/404"))
 });
 
 // Levantado el puerto (port)

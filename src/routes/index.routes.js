@@ -1,16 +1,30 @@
 const express = require("express");
 const router = express.Router();
+const path = require('path');
 
 // Schema Mongoose & db Name
 let db = "Star_Wars";
 const peliculas = require("./models/peliculas");
 const personajes = require("./models/personajes");
 
+// RUTAS
+const getAll = (path.join(__dirname, "../views/pages/getAll"));
+const getAll2 = (path.join(__dirname, "../views/pages/getAll2"));
+
+const add = (path.join(__dirname, "../views/pages/add"));
+const add2 = (path.join(__dirname, "../views/pages/add2"));
+
+const OnePeli = (path.join(__dirname, "../views/pages/OnePeli"));
+const OnePersonajes = (path.join(__dirname, "../views/pages/OnePersonajes"));
+
+
+
+
 // GET -API- for view all
 router.get("/API/getAll", async (req, res) => {
   try {
     let arrayPeliculasDB = await peliculas.find();
-    res.render("../views/pages/getAll", {
+    res.render(getAll, {
       arrayPeliculas: arrayPeliculasDB,
     });
   } catch (error) {
@@ -22,7 +36,7 @@ router.get("/API/getAll", async (req, res) => {
 router.get("/API/getAll2", async (req, res) => {
   try {
     let arrayPersonajesDB = await personajes.find();
-    res.render("../views/pages/getAll2", {
+    res.render(getAll2, {
       arrayPersonajes: arrayPersonajesDB,
     });
   } catch (error) {
@@ -32,12 +46,12 @@ router.get("/API/getAll2", async (req, res) => {
 
 // GET API/add
 router.get("/API/add", (req, res) => {
-  res.render("../views/pages/add");
+  res.render(add);
 });
 
 // GET API/add2
 router.get("/API/add2", (req, res) => {
-  res.render("../views/pages/add2");
+  res.render(add2);
 });
 
 // POST API/Add2
@@ -72,13 +86,13 @@ router.get("/API/:id", async (req, res) => {
   try {
     const peliculasDB = await peliculas.findOne({ _id: id });
     // console.log(peliculasDB);
-    res.render("../views/pages/OnePeli", {
+    res.render(OnePeli, {
       pelicula: peliculasDB,
       error: false,
     });
   } catch (error) {
     console.log(error);
-    res.render("../views/pages/OnePeli", {
+    res.render(OnePeli, {
       error: true,
       mensaje: "No se encuentra el Id seleccionado",
     });
@@ -91,13 +105,13 @@ router.get("/api2/:id", async (req, res) => {
   try {
     const personajesDB = await personajes.findOne({ _id: id });
     // console.log(peliculasDB);
-    res.render("../views/pages/OnePersonajes", {
+    res.render(OnePersonajes, {
       personaje: personajesDB,
       error: false,
     });
   } catch (error) {
     console.log(error);
-    res.render("../views/pages/OnePersonajes", {
+    res.render(OnePersonajes, {
       error: true,
       mensaje: "No se encuentra el Id seleccionado",
     });
@@ -108,7 +122,7 @@ router.get("/api2/:id", async (req, res) => {
 router.get("/API/Busqueda/1", async (req, res) => {
   try {
     let arrayPersonajesDB = await personajes.find({ especie: "Humano" });
-    res.render("../views/pages/getAll2", {
+    res.render(getAll2, {
       arrayPersonajes: arrayPersonajesDB,
     });
     // console.log(arrayPersonajesDB);
@@ -121,7 +135,7 @@ router.get("/API/Busqueda/1", async (req, res) => {
 router.get("/API/Busqueda/2", async (req, res) => {
   try {
     const arrayPersonajesDB = await personajes.find({ afiliacion: /Sith/ });
-    res.render("../views/pages/getAll2", {
+    res.render(getAll2, {
       arrayPersonajes: arrayPersonajesDB,
     });
     // console.log(arrayPersonajesDB);
@@ -136,7 +150,7 @@ router.get("/API/Busqueda/3", async (req, res) => {
     const arrayPersonajesDB = await personajes.find({
       planeta_natal: "Tatooine",
     });
-    res.render("../views/pages/getAll2", {
+    res.render(getAll2, {
       arrayPersonajes: arrayPersonajesDB,
     });
     //  console.log(arrayPersonajesDB);
@@ -150,7 +164,7 @@ router.get("/API/Busqueda/4", async (req, res) => {
   try {
     const arrayPeliculasDB = await peliculas.find({ Director: "George Lucas" });
     // console.log(arrayPeliculasDB);
-    res.render("../views/pages/getAll", {
+    res.render(getAll, {
       arrayPeliculas: arrayPeliculasDB,
     });
   } catch (error) {
