@@ -1,58 +1,53 @@
 const express = require("express");
 const app = express();                        // Express
 
-const bodyParser = require("body-parser");    // bodyParser
-const mongoose = require("mongoose")          // Mongoose
+const bodyParser = require("body-parser");    // bodyParser.
+const mongoose = require("mongoose")          // Mongoose.
 
-require('dotenv').config()                    // Variables de entono HEROKU
+// require('dotenv').config()                    // Variables de entono HEROKU.
 
-const path = require("path");                 // Rutas relativas (Linux, Wndows, Mac)
-const { Console } = require("console");
 
-app.set("view engine", "ejs");                // Renderizado ejs
-
-let port = process.env.PORT || 3000;          // Puerto asignado
+const path = require("path");                 // Rutas relativas => Ruta absoluta.
+require('dotenv').config()
 
 
 
-//  parse application/json && /x-www-form-urlencoded &&
+app.set("view engine", "ejs");                // Renderizado ejs.
+
+let port = process.env.PORT || 3000;          // Puerto asignado.
+
+//  Procesa .json el body y formularios
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connection MONGODB Cluster
-const user = "david"
-const password = "w08bsQx75MlhiT9N"
-const dbName = "StarWars"
-
-const uri = `mongodb+srv://${user}:${password}@cluster0.qmiyj.mongodb.net/${dbName}?retryWrites=true&w=majority`
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.qmiyj.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(()=> console.log('Conectado a mongodb')) 
   .catch(e => console.log('error de conexión', e))
 
-  // CONECXION LOCAL 
+// 
+/* CONECXION LOCAL 
 
-// mongoose.connect("mongodb://localhost:27017/Star_Wars", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-// const connection = mongoose.connection;
+mongoose.connect("mongodb://localhost:27017/Star_Wars", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const connection = mongoose.connection;
+connection.once("open", () => {
+  console.log("Conexión a la BD exitosa");
+});
+connection.on("error", (err) => {
+  console.log("Error en la conexión a la BD: ", err);
+ }); 
 
-// connection.once("open", () => {
-//   console.log("Conexión a la BD exitosa");
-// });
-
-// connection.on("error", (err) => {
-//   console.log("Error en la conexión a la BD: ", err);
-// });
+ */
 
 // Starting
 app.get("/", (req, res) => {
   res.render(path.join(__dirname, "views/pages/index"));
 });
-// console.log(path.join(__dirname, "views/page/index"))
-
-
 
 
 // Static files (Web)
@@ -60,13 +55,6 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // Routes
 app.use(require(path.join(__dirname,"./routes/index.routes")));
-
-// console.log(path.join(__dirname, "./routes/index.routes"));
-
-// 404
-// app.use((req, res) => {
-//   res.sendFile(path.join(__dirname, "../public/404.html"));
-// });
 
 
 // New 404 Renderizada
