@@ -2,9 +2,10 @@ const path = require('path');
 
 // Schema Mongoose & db Name
 
-const peliculas = require('../routes/models/peliculas');
 const personajes = require('../routes/models/peliculas');
+const peliculas = require('../routes/models/peliculas');
 
+let db = "Star_Wars";
 
 // RUTAS Enseñar toda la coleccón
 const getAll = (path.join(__dirname, "../views/pages/getAll"));

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const peliculasSchema = new Schema({
   Titulo:  String,
   Director: String,
-  Año_estreno: String,
+  Estreno: String,
   Presupuesto: String,
   Cronología : String,
 });

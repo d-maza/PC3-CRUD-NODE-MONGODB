@@ -71,6 +71,17 @@ router.post("/API/add", async (req, res) => {
 });
 
 
+// NUEVO EDITAR
+router.post("/api3/:id",  async  ( req ,  res )  =>  {
+  const id = req.params.id;
+  res.redirect("/API/getAll");
+  try {
+    await peliculas.updateOne({ _id: id }, req.body);
+  } catch (error) {
+    console.log.apply(error)
+  }
+});
+
 // POST API/Add2
 router.post("/API/add2", async (req, res) => {
   const body = req.body;
@@ -216,6 +227,8 @@ router.delete("/api2/:id", async (req, res) => {
     console.log("error");
   }
 });
+
+
 
 // Ruta Ejercicio 1
 router.get("/API/Busqueda/1", async (req, res) => {

@@ -4,13 +4,8 @@ const app = express();                        // Express
 const bodyParser = require("body-parser");    // bodyParser.
 const mongoose = require("mongoose")          // Mongoose.
 
-// require('dotenv').config()                    // Variables de entono HEROKU.
-
-
 const path = require("path");                 // Rutas relativas => Ruta absoluta.
-require('dotenv').config()
-
-
+require('dotenv').config()                    // Variables de entono HEROKU.
 
 app.set("view engine", "ejs");                // Renderizado ejs.
 
