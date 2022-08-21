@@ -3,7 +3,7 @@
 
 # Curso Open Source Back End Web Developer**
 
-### Practica 2
+### Practica 3
 
 
 Vamos a crear una aplicación utilizando Express JS. En ella, tendremos un array de 5 nombres y dos rutas.

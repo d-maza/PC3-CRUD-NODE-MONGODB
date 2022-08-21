@@ -19,7 +19,7 @@ const add2 = (path.join(__dirname, "../views/pages/add2"));
 
 // Ruta Editar
 const OnePeli = (path.join(__dirname, "../views/pages/OnePeli"));
-const OnePersonajes = (path.join(__dirname, "../views/pages/OnePersonajes"));
+const OnePersonajes = (path.join(__dirname, "../views/pages/OnePersonajes2"));
 
 
 
@@ -77,6 +77,16 @@ router.post("/api3/:id",  async  ( req ,  res )  =>  {
   res.redirect("/API/getAll");
   try {
     await peliculas.updateOne({ _id: id }, req.body);
+  } catch (error) {
+    console.log.apply(error)
+  }
+});
+
+router.post("/api4/:id",  async  ( req ,  res )  =>  {
+  const id = req.params.id;
+  res.redirect("/API/getAll2");
+  try {
+    await personajes.updateOne({ _id: id }, req.body);
   } catch (error) {
     console.log.apply(error)
   }
