@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 ﻿
 ﻿﻿![Logo](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB/blob/main/doc/CtrlDive.png)
+=======
+
+﻿﻿![Logo](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB/blob/main/doc/CtrlDive.png)
+
+>>>>>>> 4ea7ce9f84a4d0d7911918d45cd398c7d6ef57e5
 
 
 # Curso Open Source Back End Web Developer\*\*
