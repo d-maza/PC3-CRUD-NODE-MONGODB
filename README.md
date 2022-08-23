@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-﻿﻿![Logo](/public/img/CtrlDive.png)
-=======
-﻿﻿![Logo](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB/blob/main/doc/code.png)
->>>>>>> d4b8b11025a79f402ba378c3dd4c7f6a04f598e7
+
+﻿﻿![Logo](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB/blob/main/doc/CtrlDive.png)
+
 
   
 
