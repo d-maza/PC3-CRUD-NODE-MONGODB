@@ -1,4 +1,4 @@
-﻿﻿![Logo](/public/img/code.png)
+﻿﻿![Logo](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB/blob/main/doc/code.png)
 
   
   
