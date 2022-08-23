@@ -1,6 +1,5 @@
-﻿﻿![Logo](/public/img/code.png)
+﻿﻿![Logo](/public/img/CtrlDive.png)
 
-  
   
 
 # Curso Open Source Back End Web Developer**
@@ -9,7 +8,15 @@
 
 ### Practica 3
 
- [Ver ejercicio ](https://app-dmaza.herokuapp.com/)
+[Ver ejercicio ](https://app-dmaza.herokuapp.com/)
+
+[Puedes Clonar el repositorio ](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB.git)
+
+[Descargar ZIP](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB/archive/refs/heads/main.zip)
+
+Recuerda instalar las dependencias colocando en tu terminal:
+
+`npm install`
 
   
 #### Habilidades y conocimientos
@@ -69,10 +76,8 @@ El ejercicio de ejecuta en el archivo app.js de la carpeta:`src`
 
 ## Las solicitudes de extracción y los problemas son bienvenidos
 
-  
 
-Si encuentra algo que se pueda mejorar, o las mejores prácticas que podrían adoptarse en cualquier cosa relacionada con NodeJS, envíe una solicitud de extracción.
+Si encuentras algo que se pueda mejorar, envíe una solicitud de extracción.
 
-  
 
 ![:octocat:](https://github.githubassets.com/images/icons/emoji/octocat.png  ":octocat:") [d-maza](https://github.com/d-maza)
