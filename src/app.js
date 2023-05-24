@@ -7,8 +7,9 @@ const mongoose = require("mongoose")          // Mongoose.
 const path = require("path");                 // Rutas relativas => Ruta absoluta.
 require('dotenv').config()                    // Variables de entono HEROKU.
 
-app.set("view engine", "ejs");                // Renderizado ejs.
 
+app.set('views', './views/pages/');           // Renderizado ejs.
+app.set("view engine", "ejs");                
 let port = process.env.PORT || 3000;          // Puerto asignado.
 
 //  Procesa .json el body y formularios
@@ -22,34 +23,17 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(()=> console.log('Conectado a mongodb')) 
   .catch(e => console.log('error de conexión', e))
 
-// 
-/* CONECXION LOCAL 
-
-mongoose.connect("mongodb://localhost:27017/Star_Wars", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("Conexión a la BD exitosa");
-});
-connection.on("error", (err) => {
-  console.log("Error en la conexión a la BD: ", err);
- }); 
-
- */
 
 // Starting
 app.get("/", (req, res) => {
   res.render(path.join(__dirname, "views/pages/index"));
 });
 
+// Routes
+app.use(require(path.join(__dirname, "./routes/index.routes")));
 
 // Static files (Web)
 app.use(express.static(path.join(__dirname, "../public")));
-
-// Routes
-app.use(require(path.join(__dirname,"./routes/index.routes")));
 
 
 // New 404 Renderizada

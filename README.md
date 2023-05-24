@@ -1,5 +1,5 @@
 
-﻿﻿![Logo](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB/blob/main/doc/CtrlDive.png)
+﻿﻿![Logo](https://raw.githubusercontent.com/d-maza/static_web_react_demo/main/src/assets/DiveCodeHitHub.png)
 
 
 # Curso Open Source Back End Web Developer\*\*
