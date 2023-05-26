@@ -17,8 +17,8 @@
     <%-include('../pages/bloques/header') %>
 
     <div class="container">
-    
-    <a class="btn btn-dark btn-sm" href="/API/peli/addPeli">Añadir</a>  
+      <h1 class="text-center">Peliculas</h1>
+    <a class="btn btn-dark btn-sm" href="/API/getAddPeli">Añadir</a>  
     <table class="table">
       <thead>
         <tr>
@@ -44,7 +44,7 @@
                   
                     <a
                       class="btn btn-warning btn-sm"
-                      href="/API/peli/edit/<%= pelicula.id %>"
+                      href="/API/getEditPeli/<%= pelicula.id %>"
                     >
                     Editar
                   </a>

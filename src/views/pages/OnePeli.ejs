@@ -12,7 +12,7 @@
 
 <body>
 
-  <%-include('.. /pages/bloques/header') %>
+  <%-include('../pages/bloques/header') %>
     <div class="container">
       <a class="btn btn-dark btn-sm" href="/API/add">Añadir</a>
 
@@ -20,7 +20,7 @@
         Eliminar
       </button>
 
-      <% if (!error) { %>
+
 
         <form action="/api3/<%= pelicula.id %>" class="my-2" method="POST">
           <input type="text" value="<%= pelicula.Titulo %>" class="form-control my-2" name="Titulo" id="TituloInput" />
@@ -37,7 +37,8 @@
           <button type="submit" class="btn btn-warning btn-sm">Editar</button>
         </form>
 
-        <% } %>
+
+        
     </div>
 </body>
 <%- include('../pages/bloques/footer') %>

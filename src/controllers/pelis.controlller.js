@@ -1,3 +1,4 @@
+const pelicula = require('../models/peliculas.js');
 const pelisService = require('../service/peliculas.service.js')
 const path = require("path");
 
@@ -16,6 +17,27 @@ pelisCtrl.getAllPelis = async (req, res) => {
     console.error(error);
   }
   
+}
+
+pelisCtrl.getEditPeli = async (req, res) => {
+  try {
+    const id = req.params.id
+    const [pelicula]= await pelisService.get_pelicula(id)
+    console.log(pelicula);
+    res.render(path.join(__dirname, "../views/pages/onePeli"), ({
+     pelicula
+    }));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+pelisCtrl.getAddPelis = async (req, res) => {
+  try {
+    res.render(path.join(__dirname, "../views/pages/addPeli"));
+  } catch (error) {
+    console.error(error);
+  }  
 }
 
 pelisCtrl.Ejercicio4 =async (req, res) => {

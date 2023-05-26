@@ -14,7 +14,9 @@ exports.add_peliculas = (body) => {
 };
 
 exports.get_pelicula = (id) => {
-  return pelicula.findOne({ _id: id });
+  console.log(id);
+  const result = pelicula.find({_id: id})
+  return result;
 };
 
 exports.edit_peliculas = (id, body) => {
@@ -22,5 +24,5 @@ exports.edit_peliculas = (id, body) => {
 };
 
 exports.directos_GLucas = () => {
-  return peliculas.find({ Director: "George Lucas" });
+  return pelicula.find({ Director: "George Lucas" });
 };

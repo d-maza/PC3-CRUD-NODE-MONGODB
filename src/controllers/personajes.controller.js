@@ -15,6 +15,24 @@ personajesCtrl.get_personajes = async (req, res) => {
   }
 };
 
+personajesCtrl.getAddPersonaje = async (req, res) => {
+  try {
+    res.render(path.join(__dirname, "../views/pages/addPersonaje"));
+  } catch (error) {
+    console.error(error);
+  }  
+}
+personajesCtrl.getEditPersonaje = async (req, res) => {
+  try {
+    const id = req.params.id
+    const personaje= await personajesService.get_personaje(id)
+    res.render(path.join(__dirname, "../views/pages/onePersonajes"), ({
+     personaje
+    }));
+  } catch (error) {
+    console.error(error);
+  }
+}
 personajesCtrl.delete_personaje = async (req, res) => {
   try {
     let user = await personajesService.delete_personaje(req.params.id);
