@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const personajesSchema = new Schema({
+const personajeSchema = new Schema({
   nombre: String,
   especie: String,
   afiliacion: String,
@@ -10,6 +10,6 @@ const personajesSchema = new Schema({
 });
 
 // Crear el modelo
-const personajes = mongoose.model("personajes", personajesSchema);
+const personaje = mongoose.model("personaje", personajeSchema);
 
-module.exports = personajes;
+module.exports = personaje;

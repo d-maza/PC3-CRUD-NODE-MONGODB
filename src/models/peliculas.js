@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const peliculasSchema = new Schema({
+const peliculaSchema = new Schema({
   Titulo:  String,
   Director: String,
   Estreno: String,
@@ -10,6 +10,6 @@ const peliculasSchema = new Schema({
 });
 
 // Crear el modelo
-const peliculas = mongoose.model('peliculas', peliculasSchema);
+const pelicula = mongoose.model('pelicula', peliculaSchema);
 
-module.exports = peliculas;
+module.exports = pelicula;
