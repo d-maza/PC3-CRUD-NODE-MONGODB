@@ -18,13 +18,11 @@ class Crud {
     };
 
     getById = (id) => {
-
         const result = this.model.find({ _id: id })
         return result;
     };
 
     editById = (id, body) => {
-
         return this.model.findByIdAndUpdate(id, body);
     };
 }

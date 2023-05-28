@@ -1,7 +1,7 @@
 const servicePeliculas = require('../service/peliculas.service.js')
 const path = require("path");
 
-pelisCtrl = {}
+const pelisCtrl = {}
 
 pelisCtrl.getAllPelis = async (req, res) => {
   try {
