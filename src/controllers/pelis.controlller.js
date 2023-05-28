@@ -1,14 +1,12 @@
-const pelicula = require('../models/peliculas.js');
-const pelisService = require('../service/peliculas.service.js')
+const servicePeliculas = require('../service/peliculas.service.js')
 const path = require("path");
 
-const pelisCtrl = {}
+pelisCtrl = {}
 
 pelisCtrl.getAllPelis = async (req, res) => {
   try {
 
-    const arrayPeliculas = await pelisService.get_peliculas();
-
+    const arrayPeliculas = await servicePeliculas.getAll();
     res.status(200)
       .render(path.join(__dirname, "../views/pages/getAllPelis"), ({
         arrayPeliculas
@@ -22,8 +20,7 @@ pelisCtrl.getAllPelis = async (req, res) => {
 pelisCtrl.getEditPeli = async (req, res) => {
   try {
     const id = req.params.id
-    const [pelicula]= await pelisService.get_pelicula(id)
-    console.log(pelicula);
+    const [pelicula]= await servicePeliculas.getById(id)
     res.render(path.join(__dirname, "../views/pages/onePeli"), ({
      pelicula
     }));
@@ -40,9 +37,46 @@ pelisCtrl.getAddPelis = async (req, res) => {
   }  
 }
 
+pelisCtrl.add_peli = async (req, res) => {
+  const body = req.body
+  await servicePeliculas.add(body)
+  try {
+    res.redirect('/API/getAllPelis');
+  } catch (error) {
+    console.error(error);
+  }  
+}
+
+pelisCtrl.editPeli = async (req, res) => {
+  const id = req.params.id
+  const body = req.body
+ await servicePeliculas.editById(id ,body)
+  try {
+    res.redirect('/API/getAllPelis');
+  } catch (error) {
+    console.error(error);
+  }  
+}
+
+pelisCtrl.deletePeli = async (req, res) => {
+  const id = req.params.id
+ 
+  try {
+    await servicePeliculas.delete(id)
+    res.json(
+      {
+        mensaje: 'Eliminado correctamente',
+      },
+
+    ).status(200);
+  } catch (error) {
+    console.error(error);
+  }  
+}
+
 pelisCtrl.Ejercicio4 =async (req, res) => {
   try {
-    const arrayPeliculas = await pelisService.directos_GLucas()
+    const arrayPeliculas = await servicePeliculas.director_GLucas()
     res.status(200)  
     .render(path.join(__dirname, '../views/pages/getAllPelis'), ({
       arrayPeliculas
@@ -54,138 +88,3 @@ pelisCtrl.Ejercicio4 =async (req, res) => {
 
 module.exports = pelisCtrl
 
-// StarWarsCtrl.getAllPersoanjes = async (req, res) => {
-//     try {
-//       const arraypelicuals = await pelicuals.find();
-//       res.render(path.join(__dirname, "../views/pages/getAllpelicuals"), {
-//         arraypelicuals
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-  
-  
-//   StarWarsCtrl.getAddPeli = (req, res) => {
-    
-//     res.render(path.join(__dirname,"../views/pages/addPeli"));
-//   };
-  
-//   StarWarsCtrl.postAddPeli = async (req, res) => {
-//     const body = req.body;
-//     try {
-//       await peliculas.create(body);
-//       res. ("/API/peli/getAllPelis");
-//     } catch (error) {
-//       console.log("error", error);
-//     }
-//   };
-   
-//   StarWarsCtrl.getAddPersonaje = (req, res) => {
-//     res.render('../views/pages/');
-//   };
-  
-//   // StarWarsCtrl.AñadirPersonaje = async (req, res) => {
-//   //   const body = req.body;
-//   //   res.redirect(path.join(__dirname,"../views/pages/add"));
-//   //   try {
-//   //     await pelicuals.create(body);
-//   //   } catch (error) {
-//   //     console.log("error", error);
-//   //   }
-//   // };
-//   // NUEVO EDITAR
-//   StarWarsCtrl.editPeli =  async  ( req ,  res )  =>  {
-//     const id = req.params.id;
-//     res.redirect(path.join(__dirname,"../views/pages/onePelis"));
-//     try {
-//       await peliculas.updateOne({ _id: id }, req.body);
-//     } catch (error) {
-//       console.log.apply(error)
-//     }
-//   };
-  
-//   StarWarsCtrl.editPersonaje = async  ( req ,  res )  =>  {
-//     const id = req.params.id;
-//     res.redirect("/API/getAll2");
-//     try {
-//       await pelicuals.updateOne({ _id: id }, req.body);
-//     } catch (error) {
-//       console.log.apply(error)
-//     }
-//   };
-  
-  
-//   // DELETE => api peliculas
-//   StarWarsCtrl.deletePeli = async (req, res) => {
-//     const id = req.params.id;
-//     try {
-//       const peliculasDB = await peliculas.findByIdAndDelete({ _id: id });
-  
-//       if (peliculasDB) {
-//         res.json({
-//           estado: true,
-//           mensaje: "Eliminado",
-//         });
-//       } else {
-//         res.json({
-//           estado: false,
-//           mensaje: "No se puede eliminar",
-//         });
-//       }
-//     } catch (error) {
-//       console.log("error");
-//     }
-//   };
-  
-  
-//   // Ejercicio 1
-//   StarWarsCtrl.Ejercicio1 = async (_req, res) => {
-//     try {
-//       const arraypelicuals = await pelicuals.find({ especie: "Humano" });
-  
-//       res.render(path.join(__dirname,"../views/pages/getAllpelicuals"), {
-//         arraypelicuals
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-  
-//   //  Ejercicio 2.
-//   StarWarsCtrl.Ejercicio2 = async (_req, res) => {
-//     try {
-//       const arraypelicuals = await pelicuals.find({ afiliacion: /Sith/ });
-//       res.render(path.join(__dirname,"../views/pages/getAllpelicuals"), {
-//         arraypelicuals
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-  
-//   //  Ejercicio 3.
-//   StarWarsCtrl.Ejercicio3 = async (_req, res) => {
-//     try {
-//       const arraypelicuals = await pelicuals.find({
-//         planeta_natal: "Tatooine",
-//       });
-//       res.render(path.join(__dirname,"../views/pages/getAllpelicuals"), {
-//         arraypelicuals
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-  
-//   // Ejercicio 4
-//   StarWarsCtrl.Ejercicio4 = async (_req, res) => {
-//     try {
-//       const arrayPeliculas = await peliculas.find({ Director: "George Lucas" });
-//       res.render(path.join(__dirname,"../views/pages/getAllPelis"), {
-//         arrayPeliculas,
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };

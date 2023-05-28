@@ -24,6 +24,7 @@ mongoose.connect(uri)
 
 app.get("/", (req, res) => {
   res.render(path.join(__dirname, "views/pages/index"));
+  
 });
 
 

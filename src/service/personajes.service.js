@@ -1,32 +1,19 @@
-const personaje = require('../models/personajes.js');
+const personaje = require("../models/personajes.js");
+const Crud = require("./crud.service");
 
-exports.get_personajes = () => {
-  return  personaje.find();
-};
+const crudPersonajes = new Crud(personaje);
 
-exports.delete_personaje =  (id) => {
-  return  personaje.findByIdAndDelete(id);
-};
-
-exports.add_personaje =  (body) => {
-  const personaje = new personaje(body);
-  return  personaje.create(personaje);
-};
-
-exports.get_personaje =  (id) => {
-  return personaje.findOne({ _id: id });
-};
-
-exports.edit_personaje =  (id, body) => {
-  return  personaje.findByIdAndUpdate(id, body);
+const servicePersonajes = {
+  ...crudPersonajes,
+  buscar_humanos() {
+    return this.model.find({ especie: "Humano" });
+  },
+  afiliacion_Sith() {
+    return this.model.find({ afiliacion: /Sith/ });
+  },
+  planetaNatal_Tattooine() {
+    return this.model.find({ planeta_natal: "Tatooine" });
+  },
 };
 
-exports.buscar_humanos =  () => {
-  return  personaje.find({ especie: "Humano" });
-};
-exports.afiliacion_Sith =  () => {
-  return  personaje.find({ afiliacion: /Sith/ });
-};
-exports.planetaNatal_Tattooine =  () => {
-  return  personaje.find({ planeta_natal: "Tatooine" });
-};
+module.exports = servicePersonajes;

@@ -1,12 +1,15 @@
 const personajesService = require('../service/personajes.service.js')
+const { request, response } = require('express')
+
 const path = require("path");
 
 const personajesCtrl = {}
 
-personajesCtrl.get_personajes = async (req, res) => {
+personajesCtrl.get_personajes = async (request, response) => {
   try {
-    const arrayPersonajes = await personajesService.get_personajes();
-    res.status(200)
+    const arrayPersonajes = await personajesService.getAll();
+    
+    response.status(200)
       .render(path.join(__dirname, '../views/pages/getAllPersonajes'), ({
         arrayPersonajes: arrayPersonajes
       }));
@@ -15,76 +18,76 @@ personajesCtrl.get_personajes = async (req, res) => {
   }
 };
 
-personajesCtrl.getAddPersonaje = async (req, res) => {
+personajesCtrl.getAddPersonaje = async (request, response) => {
   try {
-    res.render(path.join(__dirname, "../views/pages/addPersonaje"));
+    response.render(path.join(__dirname, "../views/pages/addPersonaje"));
   } catch (error) {
     console.error(error);
   }  
 }
-personajesCtrl.getEditPersonaje = async (req, res) => {
+personajesCtrl.getEditPersonaje = async (request, response) => {
   try {
-    const id = req.params.id
-    const personaje= await personajesService.get_personaje(id)
-    res.render(path.join(__dirname, "../views/pages/onePersonajes"), ({
+    const id = request.params.id
+    const [personaje] = await personajesService.getById(id)
+    // console.log(personaje);
+    response.render(path.join(__dirname, "../views/pages/onePersonajes"), ({
      personaje
     }));
   } catch (error) {
     console.error(error);
   }
 }
-personajesCtrl.delete_personaje = async (req, res) => {
+personajesCtrl.delete_personaje = async (request, response) => {
+   const id = request.params.id
   try {
-    let user = await personajesService.delete_personaje(req.params.id);
-    res.json(
+     await personajesService.delete(id)
+    response.json(
       {
-        mensaje: '🔥 Eliminado correctamente 🔥',
+        mensaje: 'Eliminado correctamente',
       },
 
     ).status(200);
   } catch (error) {
-    res.status(500).send(error.message);
+    response.status(500).send(error.message);
   }
 };
 
-personajesCtrl.add_personaje = async (req, res) => {
+personajesCtrl.add_personaje = async (request, response) => {
   try {
-    let user = await personajesService.add_personaje(req.body);
-    res.status(201).send(user);
+    await personajesService.add(request.body);
+    response.redirect('/API/getAllPersonajes');
   } catch (error) {
-    res.status(500).send(error.message);
+    response.status(500).send(error.message);
   }
 };
 
-personajesCtrl.get_personaje = async (req, res) => {
-  const id = req.params.id;
+personajesCtrl.get_personaje = async (request, response) => {
+  const id = request.params.id;
   try {
-    const user = await personajesService.get_personaje({ _id: id });
-    res.status(200).send(user);
+    const user = await personajesService.getById({ _id: id });
+    response.status(200).send(user);
   } catch (error) {
-    res.end(error.message).status(204);
+    response.end(error.message).status(204);
   }
 };
 
-personajesCtrl.edit_personaje = async (req, res) => {
-  const body = req.body;
-  const id = req.params.id;
+personajesCtrl.edit_personaje = async (request, response) => {
+  const body = request.body;
+  const id = request.params.id;
+
   try {
-    await personajesService.edit_personaje(id, body);
-    res.status(201).json({
-      mensaje: "Editado correctamente 👌🏼",
-      data: body,
-    });
+    await personajesService.editById(id, body);
+    response.redirect("/API/getAllPersonajes");
   } catch (error) {
-    res.status(500).send(error.message);
+    response.status(500).send(error.message);
   }
 };
 
 // Ejercicio 1
-personajesCtrl.Ejercicio1 = async (req, res) => {
+personajesCtrl.Ejercicio1 = async (request, response) => {
   try {
     const arrayPersonajes = await personajesService.buscar_humanos()
-    res.status(200)
+    response.status(200)
       .render(path.join(__dirname, '../views/pages/getAllPersonajes'), ({
         arrayPersonajes: arrayPersonajes
       }));
@@ -93,10 +96,10 @@ personajesCtrl.Ejercicio1 = async (req, res) => {
   }
 };
 
-personajesCtrl.Ejercicio2 = async (req, res) => {
+personajesCtrl.Ejercicio2 = async (rrequest, response) => {
   try {
     const arrayPersonajes = await personajesService.afiliacion_Sith()
-    res.status(200)
+    response.status(200)
       .render(path.join(__dirname, '../views/pages/getAllPersonajes'), ({
         arrayPersonajes: arrayPersonajes
       }));
@@ -104,10 +107,10 @@ personajesCtrl.Ejercicio2 = async (req, res) => {
     console.log(error);
   }
 };
-personajesCtrl.Ejercicio3 = async (req, res) => {
+personajesCtrl.Ejercicio3 = async (request, response) => {
   try {
     const arrayPersonajes = await personajesService.planetaNatal_Tattooine()
-    res.status(200)
+    response.status(200)
       .render(path.join(__dirname, '../views/pages/getAllPersonajes'), ({
         arrayPersonajes: arrayPersonajes
       }));
