@@ -26,6 +26,8 @@ app.set('views', './views/pages/');
 app.set("view engine", "ejs");
 let port = process.env.PORT || 3000;
 
+app.use('/static', express.static(path.join(__dirname, '../doc')));
+
 //  Procesa .json el body y formularios
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
