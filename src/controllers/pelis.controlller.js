@@ -1,89 +1,63 @@
 const servicePeliculas = require('../service/peliculas.service.js')
-const path = require("path");
+const { ensureFound, renderPage } = require("./controller.utils");
 
 const pelisCtrl = {}
 
 pelisCtrl.getAllPelis = async (req, res) => {
-  try {
+  const arrayPeliculas = await servicePeliculas.getAll();
 
-    const arrayPeliculas = await servicePeliculas.getAll();
-    res.status(200)
-      .render(path.join(__dirname, "../views/pages/getAllPelis"), ({
-        arrayPeliculas
-      }));
-  } catch (error) {
-    console.error(error);
-  }
-  
+  return renderPage(res, "../views/pages/getAllPelis", {
+    arrayPeliculas,
+  });
 }
 
 pelisCtrl.getEditPeli = async (req, res) => {
-  try {
-    const id = req.params.id
-    const [pelicula]= await servicePeliculas.getById(id)
-    res.render(path.join(__dirname, "../views/pages/onePeli"), ({
-     pelicula
-    }));
-  } catch (error) {
-    console.error(error);
-  }
+  const pelicula = ensureFound(
+    await servicePeliculas.getById(req.params.id),
+    'Pelicula no encontrada'
+  );
+
+  return renderPage(res, "../views/pages/OnePeli", {
+    pelicula,
+  });
 }
 
 pelisCtrl.getAddPelis = async (req, res) => {
-  try {
-    res.render(path.join(__dirname, "../views/pages/addPeli"));
-  } catch (error) {
-    console.error(error);
-  }  
+  return renderPage(res, "../views/pages/addPeli");
 }
 
 pelisCtrl.add_peli = async (req, res) => {
-  const body = req.body
-  await servicePeliculas.add(body)
-  try {
-    res.redirect('/API/getAllPelis');
-  } catch (error) {
-    console.error(error);
-  }  
+  await servicePeliculas.add(req.body)
+
+  return res.redirect('/API/getAllPelis');
 }
 
 pelisCtrl.editPeli = async (req, res) => {
-  const id = req.params.id
-  const body = req.body
- await servicePeliculas.editById(id ,body)
-  try {
-    res.redirect('/API/getAllPelis');
-  } catch (error) {
-    console.error(error);
-  }  
+  ensureFound(
+    await servicePeliculas.editById(req.params.id, req.body),
+    'Pelicula no encontrada'
+  );
+
+  return res.redirect('/API/getAllPelis');
 }
 
 pelisCtrl.deletePeli = async (req, res) => {
-  const id = req.params.id
- 
-  try {
-    await servicePeliculas.delete(id)
-    res.json(
-      {
-        mensaje: 'Eliminado correctamente',
-      },
+  ensureFound(
+    await servicePeliculas.delete(req.params.id),
+    'Pelicula no encontrada'
+  );
 
-    ).status(200);
-  } catch (error) {
-    console.error(error);
-  }  
+  return res.status(200).json({
+    mensaje: 'Eliminado correctamente',
+  });
 }
 
 pelisCtrl.Ejercicio4 =async (req, res) => {
-  try {
-    const arrayPeliculas = await servicePeliculas.director_GLucas()
-    res.status(200)  
-    .render(path.join(__dirname, '../views/pages/getAllPelis'), ({
-      arrayPeliculas
-  }));
-  } catch (error) {
-    console.log(error);
-  }
+  const arrayPeliculas = await servicePeliculas.director_GLucas()
+
+  return renderPage(res, '../views/pages/getAllPelis', {
+    arrayPeliculas,
+  });
 };
 
 module.exports = pelisCtrl

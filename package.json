@@ -4,7 +4,8 @@
   "description": "Ejercicio PC3",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "test": "node --test"
   },
   "author": "David Maza",
   "license": "ISC",
