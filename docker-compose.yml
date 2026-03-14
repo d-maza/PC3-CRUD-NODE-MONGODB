@@ -26,6 +26,7 @@ services:
       - .env
     environment:
       MONGO_HOST: mongo
+      SEED_ON_STARTUP: "true"
     depends_on:
       mongo:
         condition: service_healthy

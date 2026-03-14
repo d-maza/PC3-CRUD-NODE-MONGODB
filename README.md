@@ -33,7 +33,7 @@ npm start
 Usa este modo si quieres levantar la app y MongoDB con Docker.
 
 - `docker-compose.yml` levanta `app` y `mongo`
-- `Dockerfile` construye la imagen de Node
+- `Dockerfile` instala `nvm` y fija Node `v22.22.1`
 - `.devcontainer/` sirve para abrir el proyecto dentro de un entorno de desarrollo en contenedor
 
 Comando:
@@ -58,11 +58,18 @@ Variables principales:
 - `MONGO_USER`: usuario de Mongo
 - `MONGO_PASSWORD`: password de Mongo
 - `MONGO_URI`: cadena completa opcional; si se define, tiene prioridad sobre el resto
+- `SEED_ON_STARTUP`: si es `true`, carga datos semilla al iniciar (solo cuando colecciones estan vacias)
 
 Ejemplos rapidos:
 
 - Local: `MONGO_HOST=localhost`
 - Docker app + mongo: `MONGO_HOST=mongo`
+
+Semillas:
+
+- En `docker-compose.yml` y `.devcontainer/` viene activado `SEED_ON_STARTUP=true`
+- En local, por defecto `SEED_ON_STARTUP=true` (editable en `.env`)
+- Si no quieres sembrar en un arranque, usa `SEED_ON_STARTUP=false`
 
 ## Comandos utiles
 
