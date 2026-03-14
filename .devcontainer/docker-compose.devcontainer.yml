@@ -1,0 +1,13 @@
+services:
+  app:
+    volumes:
+      - ..:/workspaces/PC3-CRUD-NODE-MONGODB:cached
+    working_dir: /workspaces/PC3-CRUD-NODE-MONGODB
+    command: sh -c "npm install && npm run start"
+    environment:
+      MONGO_HOST: mongo
+      PORT: 3000
+
+  mongo:
+    ports:
+      - "27017:27017"

@@ -1,122 +1,86 @@
 const personajesService = require('../service/personajes.service.js')
-const { request, response } = require('express')
-
-const path = require("path");
+const { ensureFound, renderPage } = require("./controller.utils");
 
 const personajesCtrl = {}
 
 personajesCtrl.get_personajes = async (request, response) => {
-  try {
-    const arrayPersonajes = await personajesService.getAll();
-    
-    response.status(200)
-      .render(path.join(__dirname, '../views/pages/getAllPersonajes'), ({
-        arrayPersonajes: arrayPersonajes
-      }));
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
+  const arrayPersonajes = await personajesService.getAll();
+
+  return renderPage(response, '../views/pages/getAllPersonajes', {
+    arrayPersonajes,
+  });
 };
 
 personajesCtrl.getAddPersonaje = async (request, response) => {
-  try {
-    response.render(path.join(__dirname, "../views/pages/addPersonaje"));
-  } catch (error) {
-    console.error(error);
-  }  
+  return renderPage(response, "../views/pages/addPersonaje");
 }
 personajesCtrl.getEditPersonaje = async (request, response) => {
-  try {
-    const id = request.params.id
-    const [personaje] = await personajesService.getById(id)
-    // console.log(personaje);
-    response.render(path.join(__dirname, "../views/pages/onePersonajes"), ({
-     personaje
-    }));
-  } catch (error) {
-    console.error(error);
-  }
+  const personaje = ensureFound(
+    await personajesService.getById(request.params.id),
+    'Personaje no encontrado'
+  );
+
+  return renderPage(response, "../views/pages/OnePersonajes", {
+    personaje,
+  });
 }
 personajesCtrl.delete_personaje = async (request, response) => {
-   const id = request.params.id
-  try {
-     await personajesService.delete(id)
-    response.json(
-      {
-        mensaje: 'Eliminado correctamente',
-      },
+  ensureFound(
+    await personajesService.delete(request.params.id),
+    'Personaje no encontrado'
+  );
 
-    ).status(200);
-  } catch (error) {
-    response.status(500).send(error.message);
-  }
+  return response.status(200).json({
+    mensaje: 'Eliminado correctamente',
+  });
 };
 
 personajesCtrl.add_personaje = async (request, response) => {
-  try {
-    await personajesService.add(request.body);
-    response.redirect('/API/getAllPersonajes');
-  } catch (error) {
-    response.status(500).send(error.message);
-  }
+  await personajesService.add(request.body);
+
+  return response.redirect('/API/getAllPersonajes');
 };
 
 personajesCtrl.get_personaje = async (request, response) => {
-  const id = request.params.id;
-  try {
-    const user = await personajesService.getById({ _id: id });
-    response.status(200).send(user);
-  } catch (error) {
-    response.end(error.message).status(204);
-  }
+  const personaje = ensureFound(
+    await personajesService.getById(request.params.id),
+    'Personaje no encontrado'
+  );
+
+  return response.status(200).send(personaje);
 };
 
 personajesCtrl.edit_personaje = async (request, response) => {
-  const body = request.body;
-  const id = request.params.id;
+  ensureFound(
+    await personajesService.editById(request.params.id, request.body),
+    'Personaje no encontrado'
+  );
 
-  try {
-    await personajesService.editById(id, body);
-    response.redirect("/API/getAllPersonajes");
-  } catch (error) {
-    response.status(500).send(error.message);
-  }
+  return response.redirect("/API/getAllPersonajes");
 };
 
 // Ejercicio 1
 personajesCtrl.Ejercicio1 = async (request, response) => {
-  try {
-    const arrayPersonajes = await personajesService.buscar_humanos()
-    response.status(200)
-      .render(path.join(__dirname, '../views/pages/getAllPersonajes'), ({
-        arrayPersonajes: arrayPersonajes
-      }));
-  } catch (error) {
-    console.log(error);
-  }
+  const arrayPersonajes = await personajesService.buscar_humanos()
+
+  return renderPage(response, '../views/pages/getAllPersonajes', {
+    arrayPersonajes,
+  });
 };
 
 personajesCtrl.Ejercicio2 = async (rrequest, response) => {
-  try {
-    const arrayPersonajes = await personajesService.afiliacion_Sith()
-    response.status(200)
-      .render(path.join(__dirname, '../views/pages/getAllPersonajes'), ({
-        arrayPersonajes: arrayPersonajes
-      }));
-  } catch (error) {
-    console.log(error);
-  }
+  const arrayPersonajes = await personajesService.afiliacion_Sith()
+
+  return renderPage(response, '../views/pages/getAllPersonajes', {
+    arrayPersonajes,
+  });
 };
 personajesCtrl.Ejercicio3 = async (request, response) => {
-  try {
-    const arrayPersonajes = await personajesService.planetaNatal_Tattooine()
-    response.status(200)
-      .render(path.join(__dirname, '../views/pages/getAllPersonajes'), ({
-        arrayPersonajes: arrayPersonajes
-      }));
-  } catch (error) {
-    console.log(error);
-  }
+  const arrayPersonajes = await personajesService.planetaNatal_Tattooine()
+
+  return renderPage(response, '../views/pages/getAllPersonajes', {
+    arrayPersonajes,
+  });
 };
 
 module.exports = personajesCtrl

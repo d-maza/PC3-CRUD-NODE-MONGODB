@@ -13,17 +13,18 @@ class Crud {
     };
 
     add = (body) => {
-        const data = new this.model(body);
-        return this.model.create(data);
+        return this.model.create(body);
     };
 
     getById = (id) => {
-        const result = this.model.find({ _id: id })
-        return result;
+        return this.model.findById(id);
     };
 
     editById = (id, body) => {
-        return this.model.findByIdAndUpdate(id, body);
+        return this.model.findByIdAndUpdate(id, body, {
+            new: true,
+            runValidators: true,
+        });
     };
 }
 

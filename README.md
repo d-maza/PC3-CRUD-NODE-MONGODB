@@ -1,67 +1,94 @@
+![Logo](https://raw.githubusercontent.com/d-maza/static_web_react_demo/main/src/assets/DiveCodeHitHub.png)
 
-﻿﻿![Logo](https://raw.githubusercontent.com/d-maza/static_web_react_demo/main/src/assets/DiveCodeHitHub.png)
+# CRUD con Express y Mongo
 
-# CRUD CON EXPRESS Y MONGO 🐙
+Aplicacion CRUD construida con Node.js, Express, EJS y MongoDB.
 
-Breve expicacion del repositorio
+![My etiqueta](https://img.shields.io/badge/David%20Maza-DiveCode%F0%9F%90%99-blue) ![Node Version](https://img.shields.io/badge/Node-v22-green) ![GitHub repo size](https://img.shields.io/github/repo-size/d-maza/mystrore_back-MEAN) ![GitHub repo licence](https://img.shields.io/github/license/d-maza/mystrore_back-MEAN) ![Codigoutil](https://img.shields.io/badge/Co--Founder-CodigoUtil%F0%9F%92%A1-orange)
 
-![My etiqueta](https://img.shields.io/badge/David%20Maza-DiveCode%F0%9F%90%99-blue)  ![Node Version](https://img.shields.io/badge/Node-v18.12.1-green) ![GitHub repo size](https://img.shields.io/github/repo-size/d-maza/mystrore_back-MEAN) ![GitHub repo licence](https://img.shields.io/github/license/d-maza/mystrore_back-MEAN) ![Codigoutil](https://img.shields.io/badge/Co--Founder-CodigoUtil%F0%9F%92%A1-orange) 
+## Modos de ejecucion
 
-### Rules of use 🤜🏼🤛🏼
+Este proyecto puede ejecutarse de dos formas:
 
-- Run the clone repository in your terminal:
+### 1. Modo local
 
-[Puedes Clonar el repositorio ](https://github.com/d-maza/PC3-CRUD-NODE-MONGODB.git)
+Usa este modo si Node.js y MongoDB corren en tu propia maquina.
 
+- La app se ejecuta con `npm start`
+- MongoDB corre fuera de Docker
+- En `.env` el valor normal es `MONGO_HOST=localhost`
 
-- Access the folder with the command:
+Pasos:
 
-`cd PC3-CRUD-NODE-MONGODB`
+```bash
+git clone https://github.com/d-maza/PC3-CRUD-NODE-MONGODB.git
+cd PC3-CRUD-NODE-MONGODB
+npm install
+copy .env.example .env
+npm start
+```
 
-- Remember that it is necessary to have NodeJS installed, download the dependencies with the command.
+### 2. Modo contenedor
 
- `npm i`
+Usa este modo si quieres levantar la app y MongoDB con Docker.
 
+- `docker-compose.yml` levanta `app` y `mongo`
+- `Dockerfile` construye la imagen de Node
+- `.devcontainer/` sirve para abrir el proyecto dentro de un entorno de desarrollo en contenedor
 
-The exercise runs in the app.js file:
+Comando:
 
- `node src/app --whatch`
+```bash
+docker compose up --build
+```
 
- #### Skills and knowledge 🏆
+En este caso hay dos escenarios de host para Mongo:
 
-- NodeJS + JavaStript
+- Si `app` y `mongo` corren ambos dentro de Docker Compose, la app debe usar `MONGO_HOST=mongo`
+- Si la app corre en tu maquina y solo Mongo corre en Docker con puerto publicado `27017:27017`, la app debe usar `MONGO_HOST=localhost`
 
-- Relizar un CRUD completo con MongoBD
+## Configuracion
 
-- MongoBD Atlas
+Variables principales:
 
-- 3T Studio y MongoCompas
+- `PORT`: puerto HTTP de Express
+- `MONGO_HOST`: host de MongoDB
+- `MONGO_PORT`: puerto de MongoDB, por defecto `27017`
+- `MONGO_DBNAME`: nombre de la base de datos
+- `MONGO_USER`: usuario de Mongo
+- `MONGO_PASSWORD`: password de Mongo
+- `MONGO_URI`: cadena completa opcional; si se define, tiene prioridad sobre el resto
 
-- Mogoose
+Ejemplos rapidos:
 
-- Variables de entorno Dotenv
+- Local: `MONGO_HOST=localhost`
+- Docker app + mongo: `MONGO_HOST=mongo`
 
-- Bootstrap (framework)
+## Comandos utiles
 
-- Heroku
+```bash
+npm install
+npm start
+npm audit
+npm outdated
+```
 
-- Git + GitHub
+## Stack
 
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- EJS
+- Dotenv
+- Bootstrap
 
-#### Reference Guides 💡
+## Referencias
 
-- [MongoDB](https://www.mongodb.com/docs/v6.0/introduction/)
-
+- [MongoDB](https://www.mongodb.com/docs/)
 - [Bootstrap](https://getbootstrap.com/)
-
 - [Mongoose](https://mongoosejs.com/)
-
-- [Doenv](https://www.npmjs.com/package/dotenv)
-
-
-
-
-
+- [Dotenv](https://www.npmjs.com/package/dotenv)
 
 ## Pull requests and issues are welcome
 

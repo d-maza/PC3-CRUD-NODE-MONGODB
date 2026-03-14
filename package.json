@@ -4,15 +4,14 @@
   "description": "Ejercicio PC3",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app"
+    "start": "node src/app.js"
   },
   "author": "David Maza",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.0",
-    "dotenv": "^16.0.1",
-    "ejs": "^3.1.8",
-    "express": "^4.18.1",
-    "mongoose": "^6.5.2"
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.3.0"
   }
 }
